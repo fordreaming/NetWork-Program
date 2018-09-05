@@ -41,6 +41,7 @@ int main(/*int argc, char *argv[]*/)
 		clntAdrSz=sizeof(clntAdr);
 		strLen=recvfrom(servSock, message, BUF_SIZE, 0, 
 								(SOCKADDR*)&clntAdr, &clntAdrSz);
+		printf("Message from client: %s", message);
 		sendto(servSock, message, strLen, 0, 
 								(SOCKADDR*)&clntAdr, sizeof(clntAdr));
 	}	
