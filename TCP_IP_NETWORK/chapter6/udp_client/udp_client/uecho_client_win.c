@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <winsock2.h>
+#pragma comment(lib, "ws2_32.lib")
 
 #define BUF_SIZE 30
 void ErrorHandling(char *message);
 
-int main(int argc, char *argv[])
+int main(/*int argc, char *argv[]*/)
 {
 	WSADATA wsaData;
 	SOCKET sock;
@@ -14,10 +15,10 @@ int main(int argc, char *argv[])
 	int strLen;
 	
 	SOCKADDR_IN servAdr;
-	if(argc!=3) {
-		printf("Usage : %s <IP> <port>\n", argv[0]);
-		exit(1);
-	}
+	//if(argc!=3) {
+	//	printf("Usage : %s <IP> <port>\n", argv[0]);
+	//	exit(1);
+	//}
 	if(WSAStartup(MAKEWORD(2, 2), &wsaData)!=0)
 		ErrorHandling("WSAStartup() error!"); 
 
@@ -27,8 +28,10 @@ int main(int argc, char *argv[])
 	
 	memset(&servAdr, 0, sizeof(servAdr));
 	servAdr.sin_family=AF_INET;
-	servAdr.sin_addr.s_addr=inet_addr(argv[1]);
-	servAdr.sin_port=htons(atoi(argv[2]));
+	/*servAdr.sin_addr.s_addr=inet_addr(argv[1]);*/
+	servAdr.sin_addr.s_addr=inet_addr("192.168.8.2");
+	/*servAdr.sin_port=htons(atoi(argv[2]));*/
+	servAdr.sin_port=htons(0x6d60);
 	
 	connect(sock, (SOCKADDR*)&servAdr, sizeof(servAdr));
 
