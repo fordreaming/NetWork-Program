@@ -29,7 +29,8 @@ int main(/*int argc, char *argv[]*/)
 	
 	memset(&servAdr, 0, sizeof(servAdr));
 	servAdr.sin_family=AF_INET;
-	servAdr.sin_addr.s_addr=htonl(INADDR_ANY);
+	/*servAdr.sin_addr.s_addr=htonl(INADDR_ANY);*/
+	servAdr.sin_addr.s_addr=inet_addr("192.168.8.2");//·þÎñ¶ËµØÖ·
 	/*servAdr.sin_port=htons(atoi(argv[1]));*/
 	servAdr.sin_port=htons(0x6d60);
 	
@@ -44,7 +45,7 @@ int main(/*int argc, char *argv[]*/)
 		printf("Message from client: %s", message);
 		sendto(servSock, message, strLen, 0, 
 								(SOCKADDR*)&clntAdr, sizeof(clntAdr));
-	}	
+	}
 	closesocket(servSock);
 	WSACleanup();
 	return 0;
